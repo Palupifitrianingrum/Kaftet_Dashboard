@@ -392,7 +392,7 @@ with sb_full:
 
     st.html('<div class="sb-title">Periode</div>')
     st.pills(
-        "Trip belanja",
+        "Total Restock",
         trip_order,
         selection_mode="multi",
         format_func=trip_fmt,
@@ -510,7 +510,7 @@ prod = (
 # ======================================================================================
 chips = [
     f'<span class="chip"><span class="dot"></span>{period_label}</span>',
-    f'<span class="chip">{n_trips} trip belanja</span>',
+    f'<span class="chip">{n_trips} Total Restock</span>',
 ]
 if st.session_state["f_brands"]:
     chips.append(f'<span class="chip">Brand: {len(st.session_state["f_brands"])} dipilih</span>')
@@ -533,8 +533,8 @@ st.html(
 # ======================================================================================
 cards = [
     kpi("Total Pengeluaran", rupiah(spend_total), "Σ total setelah diskon", hero=True),
-    kpi("Rata-rata/Trip", rp_short(avg_per_trip), "pengeluaran per hari belanja"),
-    kpi("Trip Belanja", f"{n_trips}", "hari belanja tercatat"),
+    kpi("Rata-Rata", rp_short(avg_per_trip), "pengeluaran per hari belanja"),
+    kpi("Total Restock", f"{n_trips}", "hari belanja tercatat"),
     kpi("Produk Unik", f"{n_products}", "nama terstandardisasi"),
     kpi("Jumlah Catatan", f"{n_records}", "baris item pada struk"),
     kpi("Total Unit", _id(n_units), "qty · kemasan campuran"),

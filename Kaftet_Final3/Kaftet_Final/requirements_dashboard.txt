@@ -1,7 +1,0 @@
-# Kaftet Restock Analytics dashboard dependencies
-# Tested with Python 3.14 on Windows.
-pandas>=2.0
-numpy>=1.24
-openpyxl>=3.1      # read the source .xlsx in prepare_dashboard_data.py
-streamlit>=1.50
-plotly>=6.0

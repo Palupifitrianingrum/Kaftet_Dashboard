@@ -22,10 +22,10 @@ TETI) restock dataset — five 2026 shopping trips at Indogrosir Yogyakarta.
 |------|---------|
 | `prepare_dashboard_data.py` | Reads the source Excel, reproduces the cleaned item-level table (same logic as the analysis notebooks), writes the dashboard dataset. **Only reads the source; never modifies it.** |
 | `kaftet_dashboard.py` | The Streamlit + Plotly dashboard app. |
-| `.streamlit/config.toml` | Light theme for the main area, dark theme for the sidebar, and viewer mode (hides Deploy/menu). Keep it next to `kaftet_dashboard.py`. |
+| `.streamlit/config.toml` | Light theme for the main area, dark theme for the sidebar, and viewer mode (hides Deploy/menu). Used when running locally from this folder. **On Streamlit Community Cloud a copy must also exist at the repository root** (`<repo>/.streamlit/config.toml`) — Cloud ignores config files in subfolders. |
 | `output/kaftet_dashboard_data.csv` | 167 item-level rows the dashboard loads (also Tableau-ready). |
 | `output/kpi_summary.csv` | Validated headline KPIs. |
-| `requirements_dashboard.txt` | Python dependencies. |
+| `requirements.txt` | Python dependencies (this exact filename is required by Streamlit Community Cloud; keep it next to `kaftet_dashboard.py`). |
 | `TABLEAU_build_guide.md` | Step-by-step guide to rebuild this as a native Tableau workbook. |
 
 ---
@@ -34,7 +34,7 @@ TETI) restock dataset — five 2026 shopping trips at Indogrosir Yogyakarta.
 
 ```bash
 # 1) install dependencies (one time)
-pip install -r requirements_dashboard.txt
+pip install -r requirements.txt
 
 # 2) (re)generate the dashboard dataset from the source Excel
 python prepare_dashboard_data.py
@@ -132,3 +132,12 @@ output/kaftet_dashboard_data.csv  ──►  kaftet_dashboard.py (Streamlit + Pl
 ```
 
 The source workbook and the three analysis notebooks are never modified by the dashboard.
+
+---
+
+## 7. Deploy to Streamlit Community Cloud
+
+- **Main file path:** `Kaftet_Final3/Kaftet_Final/kaftet_dashboard.py` (adjust to the real path in your repo).
+- **Dependencies:** `requirements.txt` must sit in the **same folder as the main file** (or the repo root). Cloud only recognises the filenames `uv.lock`, `Pipfile`, `environment.yml`, `requirements.txt`, `pyproject.toml` — a name like `requirements_dashboard.txt` is silently ignored, and the app then fails with `ModuleNotFoundError: No module named 'plotly'`.
+- **Theme/config:** Cloud reads only `<repo root>/.streamlit/config.toml`.
+- **Python version:** pick it in *Advanced settings* (3.12 – 3.14 are all fine for this app).

@@ -1,0 +1,9 @@
+# Kaftet Restock Analytics - dependencies.
+# Streamlit Community Cloud only recognises this exact filename (requirements.txt),
+# and looks for it in the entrypoint's folder first, then the repo root.
+pandas>=2.0
+numpy>=1.24
+# openpyxl is only needed by prepare_dashboard_data.py (reads the source .xlsx)
+openpyxl>=3.1
+streamlit>=1.50
+plotly>=6.0
